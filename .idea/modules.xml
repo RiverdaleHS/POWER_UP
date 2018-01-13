@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/POWER-UP.iml" filepath="$PROJECT_DIR$/.idea/modules/POWER-UP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/POWER-UP_main.iml" filepath="$PROJECT_DIR$/.idea/modules/POWER-UP_main.iml" group="POWER-UP" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/POWER-UP_test.iml" filepath="$PROJECT_DIR$/.idea/modules/POWER-UP_test.iml" group="POWER-UP" />
+    </modules>
+  </component>
+</project>
