@@ -1,7 +1,7 @@
 package com.team2915.POWER_UP;
 
-import com.team2915.TankDriveCore.subsystems.DriveTrain;
-import com.team2915.TankDriveCore.subsystems.Jetson;
+import com.team2915.POWER_UP.subsystems.DriveTrain;
+import com.team2915.POWER_UP.subsystems.Jetson;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;

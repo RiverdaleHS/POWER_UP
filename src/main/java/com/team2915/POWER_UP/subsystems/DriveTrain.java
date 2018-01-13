@@ -3,8 +3,8 @@ package com.team2915.POWER_UP.subsystems;
 
 import com.ctre.MotorControl.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
-import com.team2915.TankDriveCore.RobotMap;
-import com.team2915.TankDriveCore.commands.DriveWithXbox;
+import com.team2915.POWER_UP.RobotMap;
+import com.team2915.POWER_UP.commands.DriveWithXbox;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
