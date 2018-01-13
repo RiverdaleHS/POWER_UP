@@ -5,31 +5,33 @@ import com.ctre.MotorControl.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 import com.team2915.POWER_UP.RobotMap;
 import com.team2915.POWER_UP.commands.DriveWithXbox;
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
 /**
  * Created by Henry on 5/2/17.
  */
-public class DriveTrain extends Subsystem {
+public class Chassis extends Subsystem {
 
     private AHRS ahrs = new AHRS(RobotMap.DriveTrainMap.ahrs);
 
     private CANTalon leftMaster = new CANTalon(RobotMap.DriveTrainMap.leftMaster);
-    private CANTalon leftSlave = new CANTalon(RobotMap.DriveTrainMap.leftSlave);
+    private CANTalon leftSlaveA = new CANTalon(RobotMap.DriveTrainMap.leftSlaveA);
+    private CANTalon leftSlaveB = new CANTalon(RobotMap.DriveTrainMap.leftSlaveB);
     private CANTalon rightMaster = new CANTalon(RobotMap.DriveTrainMap.rightMaster);
-    private CANTalon rightSlave = new CANTalon(RobotMap.DriveTrainMap.rightSlave);
+    private CANTalon rightSlaveA = new CANTalon(RobotMap.DriveTrainMap.rightSlaveA);
+    private CANTalon rightSlaveB = new CANTalon(RobotMap.DriveTrainMap.rightSlaveB);
 
-    private Jaguar jagl = new Jaguar(0);
-    private Jaguar jagr = new Jaguar(1);
-
-    public DriveTrain() {
+    public Chassis() {
         //set slaves to follow their masters
-        leftSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
-        leftSlave.set(leftMaster.getDeviceID());
-        rightSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
-        rightSlave.set(rightMaster.getDeviceID());
+        leftSlaveA.changeControlMode(CANTalon.TalonControlMode.Follower);
+        leftSlaveA.set(leftMaster.getDeviceID());
+        leftSlaveB.changeControlMode(CANTalon.TalonControlMode.Follower);
+        leftSlaveB.set(leftMaster.getDeviceID());
+        rightSlaveA.changeControlMode(CANTalon.TalonControlMode.Follower);
+        rightSlaveA.set(rightMaster.getDeviceID());
+        rightSlaveB.changeControlMode(CANTalon.TalonControlMode.Follower);
+        rightSlaveB.set(rightMaster.getDeviceID());
         //Invert
         leftMaster.setInverted(true);
     }
@@ -37,8 +39,6 @@ public class DriveTrain extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-
-        //XBOX Drive!!!!!!
         setDefaultCommand(new DriveWithXbox());
     }
 
@@ -52,10 +52,6 @@ public class DriveTrain extends Subsystem {
         rightMaster.set(0);
     }
 
-    public void setAux(double l, double r){
-        jagl.set(l);
-        jagr.set(r);
-    }
 
     public double getHeading(){
         return ahrs.pidGet();

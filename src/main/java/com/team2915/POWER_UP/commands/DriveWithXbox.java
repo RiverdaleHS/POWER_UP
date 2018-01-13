@@ -39,7 +39,7 @@ public class DriveWithXbox extends Command {
             r = 1;
         }
 
-        Robot.driveTrain.setAux(l, r);
+
     }
 
     @Override

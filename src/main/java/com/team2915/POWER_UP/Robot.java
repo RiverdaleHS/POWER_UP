@@ -1,6 +1,6 @@
 package com.team2915.POWER_UP;
 
-import com.team2915.POWER_UP.subsystems.DriveTrain;
+import com.team2915.POWER_UP.subsystems.Chassis;
 import com.team2915.POWER_UP.subsystems.Jetson;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -16,7 +16,7 @@ public class Robot extends IterativeRobot {
     public static final SmartDashboardManager smartDashboardManager = new SmartDashboardManager(); //This is used to manage comunications with the Smart Dashboard
 
     //Subsystems
-    public static final DriveTrain driveTrain = new DriveTrain(); //THE WHEELS THAT MAKE THE ROBOT DRIVE
+    public static final Chassis driveTrain = new Chassis(); //THE WHEELS THAT MAKE THE ROBOT DRIVE
     public static final Jetson jetson = new Jetson();
 
     @Override
