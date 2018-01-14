@@ -3,6 +3,7 @@ package com.team2915.POWER_UP.commands;
 import com.team254.frc2016.CheesyDriveHelper;
 import com.team254.lib.util.DriveSignal;
 import com.team2915.POWER_UP.Robot;
+import com.team2915.POWER_UP.subsystems.Chassis;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -28,17 +29,18 @@ public class DriveWithXbox extends Command {
         DriveSignal driveSignal = cheesyDriveHelper.cheesyDrive(throttle, turn, quickTurn);
 
         Robot.driveTrain.setSpeed(driveSignal.leftMotor, driveSignal.rightMotor);
-        double l = 0;
-        double r = 0;
+
+        if (Robot.io.getXbox().getRawButton(2)){
+            Robot.driveTrain.setShifterOFF();
+        }
+
+        if (Robot.io.getXbox().getRawButton(3)){
+            Robot.driveTrain.setShifterForward();
+        }
 
         if (Robot.io.getXbox().getRawButton(0)){
-            l = 1;
+            Robot.driveTrain.setShifterBackward();
         }
-
-        if (Robot.io.getXbox().getRawButton(1)){
-            r = 1;
-        }
-
 
     }
 
