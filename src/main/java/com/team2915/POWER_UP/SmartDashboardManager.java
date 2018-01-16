@@ -15,6 +15,6 @@ public class SmartDashboardManager {
 
     public void updateSmartDashboard() {
         SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage());
-        SmartDashboard.putNumber("NAVX Angle", Robot.driveTrain.getHeading());
+        SmartDashboard.putNumber("NAVX Angle", Robot.chassis.getHeading());
     }
 }

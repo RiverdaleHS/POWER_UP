@@ -3,7 +3,6 @@ package com.team2915.POWER_UP.commands;
 import com.team254.frc2016.CheesyDriveHelper;
 import com.team254.lib.util.DriveSignal;
 import com.team2915.POWER_UP.Robot;
-import com.team2915.POWER_UP.subsystems.Chassis;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -14,7 +13,7 @@ public class DriveWithXbox extends Command {
     CheesyDriveHelper cheesyDriveHelper = new CheesyDriveHelper();
 
     public DriveWithXbox(){
-        requires(Robot.driveTrain);
+        requires(Robot.chassis);
     }
 
 
@@ -28,18 +27,18 @@ public class DriveWithXbox extends Command {
 
         DriveSignal driveSignal = cheesyDriveHelper.cheesyDrive(throttle, turn, quickTurn);
 
-        Robot.driveTrain.setSpeed(driveSignal.leftMotor, driveSignal.rightMotor);
+        Robot.chassis.setSpeed(driveSignal.leftMotor, driveSignal.rightMotor);
 
         if (Robot.io.getXbox().getRawButton(2)){
-            Robot.driveTrain.setShifterOFF();
+            Robot.chassis.setShifterOFF();
         }
 
         if (Robot.io.getXbox().getRawButton(3)){
-            Robot.driveTrain.setShifterForward();
+            Robot.chassis.setShifterForward();
         }
 
         if (Robot.io.getXbox().getRawButton(0)){
-            Robot.driveTrain.setShifterBackward();
+            Robot.chassis.setShifterBackward();
         }
 
     }
@@ -58,6 +57,6 @@ public class DriveWithXbox extends Command {
     @Override
     protected void end() {
         super.end();
-        Robot.driveTrain.stop();
+        Robot.chassis.stop();
     }
 }
