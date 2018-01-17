@@ -57,13 +57,13 @@ public class Chassis extends Subsystem {
         return ahrs.pidGet();
     }
 
-    public void setShifterForward(){
+    public void shiftLow(){
         shifter.set(DoubleSolenoid.Value.kForward);
     }
-    public void setShifterBackward(){
+    public void shiftHigh(){
         shifter.set(DoubleSolenoid.Value.kReverse);
     }
-    public void setShifterOFF(){
+    public void shiftOff(){
         shifter.set(DoubleSolenoid.Value.kOff);
     }
 }

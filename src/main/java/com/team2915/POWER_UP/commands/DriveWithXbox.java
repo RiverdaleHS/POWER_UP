@@ -30,15 +30,19 @@ public class DriveWithXbox extends Command {
         Robot.chassis.setSpeed(driveSignal.leftMotor, driveSignal.rightMotor);
 
         if (Robot.io.getXbox().getRawButton(2)){
-            Robot.chassis.setShifterOFF();
+            Robot.chassis.shiftOff();
+            System.out.println("button 2");
+        }
+
+        if (Robot.io.getXbox().getRawButton(1)){
+            Robot.chassis.shiftLow();
+            System.out.println("button 1");
+            //SHIFTS TO LOW
         }
 
         if (Robot.io.getXbox().getRawButton(3)){
-            Robot.chassis.setShifterForward();
-        }
-
-        if (Robot.io.getXbox().getRawButton(0)){
-            Robot.chassis.setShifterBackward();
+            Robot.chassis.shiftHigh();
+            System.out.println("button 3");
         }
 
     }

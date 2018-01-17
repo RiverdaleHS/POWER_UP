@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         super.teleopPeriodic();
         Scheduler.getInstance().run();
-        smartDashboardManager.updateSmartDashboard();
+        //smartDashboardManager.updateSmartDashboard();
     }
 
 
