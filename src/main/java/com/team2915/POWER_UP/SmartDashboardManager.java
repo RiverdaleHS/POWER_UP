@@ -8,13 +8,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SmartDashboardManager {
 
-    //PowerDistributionPanel pdp = new PowerDistributionPanel();
+    PowerDistributionPanel pdp = new PowerDistributionPanel();
 
     public SmartDashboardManager() {
     }
 
     public void updateSmartDashboard() {
-        //SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage());
+        SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage());
         SmartDashboard.putNumber("NAVX Angle", Robot.chassis.getHeading());
+        SmartDashboard.putNumber("Left Encoder", Robot.chassis.getLeftEncoderDistance());
+        SmartDashboard.putNumber("Right Encoder", Robot.chassis.getRightEncoderDistance());
+        SmartDashboard.putNumber("Acceleration", Robot.chassis.getAcceleration());
+        //Subsystems to track commands
+        SmartDashboard.putData(Robot.chassis);
     }
 }

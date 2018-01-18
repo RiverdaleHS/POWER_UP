@@ -6,6 +6,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.team2915.POWER_UP.RobotMap;
 import com.team2915.POWER_UP.commands.DriveWithXbox;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 //import pathfinder
 
@@ -14,26 +15,31 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Chassis extends Subsystem {
 
-    private AHRS ahrs = new AHRS(RobotMap.DriveTrainMap.ahrs);
+    private AHRS ahrs = new AHRS(RobotMap.ChassisMap.ahrs);
 
-    private TalonSRX leftMaster = new TalonSRX(RobotMap.DriveTrainMap.leftMaster);
-    private TalonSRX leftSlaveA = new TalonSRX(RobotMap.DriveTrainMap.leftSlaveA);
-    private TalonSRX leftSlaveB = new TalonSRX(RobotMap.DriveTrainMap.leftSlaveB);
-    private TalonSRX rightMaster = new TalonSRX(RobotMap.DriveTrainMap.rightMaster);
-    private TalonSRX rightSlaveA = new TalonSRX(RobotMap.DriveTrainMap.rightSlaveA);
-    private TalonSRX rightSlaveB = new TalonSRX(RobotMap.DriveTrainMap.rightSlaveB);
+    private TalonSRX leftMaster = new TalonSRX(RobotMap.ChassisMap.leftMaster);
+    private TalonSRX leftSlaveA = new TalonSRX(RobotMap.ChassisMap.leftSlaveA);
+    private TalonSRX leftSlaveB = new TalonSRX(RobotMap.ChassisMap.leftSlaveB);
+    private TalonSRX rightMaster = new TalonSRX(RobotMap.ChassisMap.rightMaster);
+    private TalonSRX rightSlaveA = new TalonSRX(RobotMap.ChassisMap.rightSlaveA);
+    private TalonSRX rightSlaveB = new TalonSRX(RobotMap.ChassisMap.rightSlaveB);
 
-    private DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.DriveTrainMap.shifterA, RobotMap.DriveTrainMap.shifterB);
+    private Encoder leftEncoder = new Encoder(RobotMap.ChassisMap.leftEncoderTop, RobotMap.ChassisMap.leftEncoderBottom);
+    private Encoder rightEncoder = new Encoder(RobotMap.ChassisMap.rightEncoderTop, RobotMap.ChassisMap.rightEncoderBottom);
+
+    private DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.ChassisMap.shifterA, RobotMap.ChassisMap.shifterB);
 
     public Chassis() {
         //set slaves to follow their masters
-        leftSlaveA.set(ControlMode.Follower, RobotMap.DriveTrainMap.leftMaster);
-        leftSlaveB.set(ControlMode.Follower, RobotMap.DriveTrainMap.leftMaster);
+        leftSlaveA.set(ControlMode.Follower, RobotMap.ChassisMap.leftMaster);
+        leftSlaveB.set(ControlMode.Follower, RobotMap.ChassisMap.leftMaster);
 
-        rightSlaveA.set(ControlMode.Follower, RobotMap.DriveTrainMap.rightMaster);
-        rightSlaveB.set(ControlMode.Follower, RobotMap.DriveTrainMap.rightMaster);
-        //Invert
-        //leftMaster.setInverted(true);
+        rightSlaveA.set(ControlMode.Follower, RobotMap.ChassisMap.rightMaster);
+        rightSlaveB.set(ControlMode.Follower, RobotMap.ChassisMap.rightMaster);
+
+        //Reset Encoders
+        leftEncoder.reset();
+        rightEncoder.reset();
     }
 
 
@@ -55,6 +61,17 @@ public class Chassis extends Subsystem {
 
     public double getHeading(){
         return ahrs.pidGet();
+    }
+    public float getAcceleration() {
+        return ahrs.getRawAccelY();
+    }
+
+    public int getLeftEncoderDistance() {
+        return leftEncoder.get();
+    }
+
+    public int getRightEncoderDistance() {
+        return rightEncoder.get();
     }
 
     public void shiftLow(){
