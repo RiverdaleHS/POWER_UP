@@ -3,6 +3,7 @@ package com.team2915.POWER_UP.commands;
 import com.team254.frc2016.CheesyDriveHelper;
 import com.team254.lib.util.DriveSignal;
 import com.team2915.POWER_UP.Robot;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -22,7 +23,7 @@ public class DriveWithXbox extends Command {
         super.execute();
         double throttle = Robot.io.getXbox().getRawAxis(1);
         double turn = -Robot.io.getXbox().getRawAxis(4);
-        boolean quickTurn = Robot.io.getXbox().getRawButton(6);
+        boolean quickTurn = Robot.io.getXbox().getAButton();
 
 
         DriveSignal driveSignal = cheesyDriveHelper.cheesyDrive(throttle, turn, quickTurn);
@@ -31,18 +32,14 @@ public class DriveWithXbox extends Command {
 
         if (Robot.io.getXbox().getRawButton(2)){
             Robot.chassis.shiftOff();
-            System.out.println("button 2");
         }
 
-        if (Robot.io.getXbox().getRawButton(1)){
+        if (Robot.io.getXbox().getBumper(GenericHID.Hand.kLeft)){
             Robot.chassis.shiftLow();
-            System.out.println("button 1");
-            //SHIFTS TO LOW
         }
 
-        if (Robot.io.getXbox().getRawButton(3)){
+        if (Robot.io.getXbox().getBumper(GenericHID.Hand.kRight)){
             Robot.chassis.shiftHigh();
-            System.out.println("button 3");
         }
 
     }
