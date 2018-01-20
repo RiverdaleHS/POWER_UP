@@ -1,5 +1,6 @@
 package com.team2915.POWER_UP;
 
+
 import com.team2915.POWER_UP.subsystems.Chassis;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -10,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class Robot extends IterativeRobot {
 
+    public static boolean isCompBot = true;
     //Human Intface
     public static final IO io = new IO(); //IO manages the xbox controllers and joysticks
     public static final SmartDashboardManager smartDashboardManager = new SmartDashboardManager(); //This is used to manage comunications with the Smart Dashboard
@@ -21,6 +23,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         super.robotInit();
         CameraServer.getInstance().startAutomaticCapture(); //Is this why it doesnt work?
+        //SmartDashboard.putData("Execute Trajectory", new ExecuteTrajectory()); I THINK THIS MAKES A BUTTON
     }
 
     @Override
@@ -39,7 +42,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         super.teleopPeriodic();
         Scheduler.getInstance().run();
-        //smartDashboardManager.updateSmartDashboard();
+        smartDashboardManager.updateSmartDashboard();
     }
 
 

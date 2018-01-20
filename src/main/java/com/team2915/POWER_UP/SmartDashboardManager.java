@@ -1,6 +1,5 @@
 package com.team2915.POWER_UP;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -12,11 +11,8 @@ public class SmartDashboardManager {
     }
 
     public void updateSmartDashboard() {
-        SmartDashboard.putNumber("PDP Voltage", RobotMap.pdp.getVoltage());
         SmartDashboard.putNumber("NavX Angle", Robot.chassis.getHeading());
-        SmartDashboard.putNumber("PDP Temperature", RobotMap.pdp.getTemperature());
-        SmartDashboard.putNumber("Compressor Current", RobotMap.compressor.getCompressorCurrent());
-        //SmartDashboard.putNumber("PDP Current", RobotMap.pdp.getCurrent()); use for individual channels
-
+        SmartDashboard.putNumber("Left Encoder", Robot.chassis.getLeftEncoder());
+        SmartDashboard.putNumber("Right Encoder", Robot.chassis.getRightEncoder());
     }
 }
