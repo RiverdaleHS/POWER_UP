@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.team2915.POWER_UP.Robot;
-
 import java.util.ArrayList;
 
 /**
@@ -17,8 +16,6 @@ import java.util.ArrayList;
  */
 public class Chassis extends Subsystem {
     private AHRS navx = new AHRS(SPI.Port.kMXP);
-
-
     private TalonSRX leftMaster;
     private ArrayList<TalonSRX> leftSlaves;
     private TalonSRX rightMaster;
@@ -57,6 +54,7 @@ public class Chassis extends Subsystem {
         //set public drives to masters to simplify
         leftMaster.setInverted(true);
         //Initialize Shifter
+
         leftEncoder.reset();
         rightEncoder.reset();
     }
@@ -79,6 +77,17 @@ public class Chassis extends Subsystem {
 
     public double getHeading(){
         return navx.pidGet();
+    }
+    public float getAcceleration() {
+        return navx.getRawAccelY();
+    }
+
+    public int getLeftEncoderDistance() {
+        return leftEncoder.get();
+    }
+
+    public int getRightEncoderDistance() {
+        return rightEncoder.get();
     }
 
     public void shiftLow(){
