@@ -13,11 +13,13 @@ public class Robot extends IterativeRobot {
 
     public static boolean isCompBot = true;
     //Human Intface
-    public static final IO io = new IO(); //IO manages the xbox controllers and joysticks
+
     public static final SmartDashboardManager smartDashboardManager = new SmartDashboardManager(); //This is used to manage comunications with the Smart Dashboard
 
     //Subsystems
     public static final Chassis chassis = new Chassis(); //THE WHEELS THAT MAKE THE ROBOT DRIVE
+
+    public static final IO io = new IO(); //IO manages the xbox controllers and joysticks
 
     @Override
     public void robotInit() {

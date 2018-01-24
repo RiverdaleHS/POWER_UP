@@ -1,6 +1,7 @@
 package com.team2915.POWER_UP.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.kauailabs.navx.frc.AHRS;
 import com.team2915.POWER_UP.commands.DriveWithXbox;
@@ -35,7 +36,7 @@ public class Chassis extends Subsystem {
         //Initialize Slave ArrayLists
         leftSlaves = new ArrayList<TalonSRX>();
         rightSlaves = new ArrayList<TalonSRX>();
-        //Add First Slavee
+        //Add First Slave
         leftSlaves.add(new TalonSRX(31));
         rightSlaves.add(new TalonSRX(21));
         //Add Second Slaves if on test chassis
@@ -43,20 +44,30 @@ public class Chassis extends Subsystem {
             leftSlaves.add(new TalonSRX(32));
             rightSlaves.add(new TalonSRX(22));
         }
+
+        rightMaster.setInverted(true);
+        leftMaster.setNeutralMode(NeutralMode.Brake);
+        rightMaster.setNeutralMode(NeutralMode.Brake);
         //Configure left slaves
         for (TalonSRX ls : leftSlaves) {
             ls.set(ControlMode.Follower, leftMaster.getDeviceID());
+
+            ls.setNeutralMode(NeutralMode.Brake);
         }
         //Configure right slaves
         for (TalonSRX rs : rightSlaves) {
             rs.set(ControlMode.Follower, rightMaster.getDeviceID());
+            rs.setNeutralMode(NeutralMode.Brake);
+            rs.setInverted(true);
         }
         //set public drives to masters to simplify
-        leftMaster.setInverted(true);
+
+
         //Initialize Shifter
 
         leftEncoder.reset();
         rightEncoder.reset();
+        navx.reset();
     }
 
 
@@ -82,13 +93,6 @@ public class Chassis extends Subsystem {
         return navx.getRawAccelY();
     }
 
-    public int getLeftEncoderDistance() {
-        return leftEncoder.get();
-    }
-
-    public int getRightEncoderDistance() {
-        return rightEncoder.get();
-    }
 
     public void shiftLow(){
         shifter.set(DoubleSolenoid.Value.kForward);
