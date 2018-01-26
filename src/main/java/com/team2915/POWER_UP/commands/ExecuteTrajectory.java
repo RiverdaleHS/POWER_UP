@@ -23,7 +23,7 @@ public class ExecuteTrajectory extends Command {
     public ExecuteTrajectory(){
         requires(Robot.chassis);
         //Make sure we are in low gear
-        Robot.chassis.shiftLow();
+
         TrajectoryGenerator trajgen = new TrajectoryGenerator();
         Trajectory trajectory = trajgen.generateTrajectory();
 
@@ -48,6 +48,8 @@ public class ExecuteTrajectory extends Command {
         super.execute();
         if (hasRun == false) {
             hasRun = true;
+            Robot.chassis.shiftLow();
+            Robot.chassis.zeroNavX();
             leftFollower.configureEncoder(Robot.chassis.getLeftEncoder(), RobotMap.ChassisMap.encoder_ticks_per_rev, RobotMap.ChassisMap.wheel_diameter);
             rightFollower.configureEncoder(Robot.chassis.getRightEncoder(), RobotMap.ChassisMap.encoder_ticks_per_rev, RobotMap.ChassisMap.wheel_diameter);
             leftFollower.reset();
@@ -58,8 +60,10 @@ public class ExecuteTrajectory extends Command {
 
         double desiredHeading = Pathfinder.r2d(leftFollower.getHeading());
         double angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - Robot.chassis.getHeading());
-        double turn = 0.8 * (-1.0/80.0) * angleDifference; //No idea where these numbers come from
-        Robot.chassis.setSpeed(-(leftOutput + turn), -(rightOutput - turn));
+        double turn = 0.8 * (-1.0/60.0) * angleDifference; //No idea where these numbers come from
+        Robot.chassis.setSpeed(-(leftOutput - turn), -(rightOutput + turn));
+        //Robot.chassis.setSpeed(-leftOutput, -rightOutput);
+        System.out.println("left: " + -(leftOutput - turn) + " right: " + -(rightOutput + turn));
     }
 
     @Override

@@ -14,7 +14,6 @@ public class SmartDashboardManager {
         SmartDashboard.putNumber("NavX Angle", Robot.chassis.getHeading());
         SmartDashboard.putNumber("Left Encoder", Robot.chassis.getLeftEncoder());
         SmartDashboard.putNumber("Right Encoder", Robot.chassis.getRightEncoder());
-
         SmartDashboard.putData(Robot.chassis);
 
     }

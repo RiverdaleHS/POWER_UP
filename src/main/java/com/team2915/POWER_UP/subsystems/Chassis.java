@@ -89,6 +89,10 @@ public class Chassis extends Subsystem {
     public double getHeading(){
         return navx.pidGet();
     }
+
+    public void zeroNavX(){
+        navx.zeroYaw();
+    }
     public float getAcceleration() {
         return navx.getRawAccelY();
     }

@@ -34,17 +34,27 @@ public class RobotMap {
         public static final int shifterA = 0;
         public static final int shifterB = 1;
         //Stats for Profiling in meters
-        public static final double wheel_base_width = 0.5969;
-        public static final int encoder_ticks_per_rev = 2048;
+//        public static final double wheel_base_width = 23.5;
+//        public static final int encoder_ticks_per_rev = 1920;
+//        public static final double max_velocity = 30; // inches/s
+//        public static final double max_acceleration = 60; // inches/s/s
+//        public static final double max_jerk = 90;// inches/s/s/s
+//        public static final double wheel_diameter = 6;
+//        public static final double proportional_gain = 1.0;
+//        public static final double derivative_gain = 0.0;
+//        public static final double acceleration_gain = 0.0;
+        public static final double wheel_base_width = 0.635;
+        public static final int encoder_ticks_per_rev = 1920;
         public static final double max_velocity = 0.5; // m/s
         public static final double max_acceleration = 0.5; // m/s^2
         public static final double max_jerk = 60;// m/s^3 ?
-        public static final double wheel_diameter = 0.165;
-        public static final double proportional_gain = 1.0;
+        public static final double wheel_diameter = 0.1651;
+        public static final double proportional_gain = 0.8;
         public static final double derivative_gain = 0.0;
-        public static final double acceleration_gain = 0.0;
+        public static final double acceleration_gain = -0.1;
 
     }
+
 
 
 }
