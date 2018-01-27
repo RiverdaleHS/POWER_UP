@@ -11,21 +11,18 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class Robot extends IterativeRobot {
 
-    public static boolean isCompBot = true;
-    //Human Intface
+    public static boolean isCompBot = true; //TODO: try and run the test chassis with this
 
-    public static final SmartDashboardManager smartDashboardManager = new SmartDashboardManager(); //This is used to manage comunications with the Smart Dashboard
-
-    //Subsystems
     public static final Chassis chassis = new Chassis(); //THE WHEELS THAT MAKE THE ROBOT DRIVE
 
     public static final IO io = new IO(); //IO manages the xbox controllers and joysticks
 
+    public static final SmartDashboardManager smartDashboardManager = new SmartDashboardManager(); //This is used to manage comunications with the Smart Dashboard
     @Override
     public void robotInit() {
         super.robotInit();
-        CameraServer.getInstance().startAutomaticCapture(); //Is this why it doesnt work?
-        //SmartDashboard.putData("Execute Trajectory", new ExecuteTrajectory()); I THINK THIS MAKES A BUTTON
+        CameraServer.getInstance().startAutomaticCapture();
+
     }
 
     @Override
@@ -38,6 +35,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopInit() {
         super.teleopInit();
+        smartDashboardManager.updateSmartDashboard();
     }
 
     @Override
@@ -51,6 +49,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         super.autonomousInit();
+        //Choose auto and set it up
+        smartDashboardManager.updateSmartDashboard();
     }
 
     @Override
