@@ -1,0 +1,40 @@
+package org.usfirst.frc.team2915.robot;
+
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+
+public class Logitech  {
+	//define stick
+	Joystick joystick;
+	Joystick rightjoy;
+	public Logitech(int port) {
+			joystick = new Joystick(0);
+			rightjoy = new Joystick(1);
+	}
+	
+	public boolean getAButton(){
+		return joystick.getRawButton(1);
+	}
+	public boolean getXButton(){
+		return joystick.getRawButton(3);
+	}
+	public boolean getBButton(){
+		return joystick.getRawButton(2);
+	}
+	public boolean getYButton(){
+		return joystick.getRawButton(4);
+	}
+	public double getLXAxis(){
+		return joystick.getRawAxis(0);
+	}
+	public double getLYAxis(){
+		return joystick.getRawAxis(1);	
+	}
+	
+	public double getRXAxis(){
+		return rightjoy.getRawAxis(4);	
+	}
+	public double getRYAxis(){
+		return rightjoy.getRawAxis(5);
+	}
+	
