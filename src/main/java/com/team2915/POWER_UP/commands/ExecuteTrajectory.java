@@ -1,7 +1,6 @@
 package com.team2915.POWER_UP.commands;
 
 import com.team2915.POWER_UP.Robot;
-import com.team2915.POWER_UP.RobotMap;
 import com.team2915.POWER_UP.TrajectoryGeneration.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Pathfinder;
@@ -18,52 +17,58 @@ public class ExecuteTrajectory extends Command {
 
     Boolean hasRun = false;
 
-
-
     public ExecuteTrajectory(){
         requires(Robot.chassis);
-        //Make sure we are in low gear
-
-        TrajectoryGenerator trajgen = new TrajectoryGenerator();
-        Trajectory trajectory = trajgen.generateTrajectory();
-
-        tankModifier = new TankModifier(trajectory).modify(RobotMap.ChassisMap.wheel_base_width);
-        leftFollower = new EncoderFollower(tankModifier.getLeftTrajectory());
-        rightFollower = new EncoderFollower(tankModifier.getRightTrajectory());
-
-        // The first argument is the proportional gain. Usually this will be quite high
-        // The second argument is the integral gain. This is unused for motion profiling
-        // The third argument is the derivative gain. Tweak this if you are unhappy with the tracking of the trajectory
-        // The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the
-        //      trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
-        // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-        leftFollower.configurePIDVA(RobotMap.ChassisMap.proportional_gain, 0.0, RobotMap.ChassisMap.derivative_gain, 1/RobotMap.ChassisMap.max_velocity, RobotMap.ChassisMap.acceleration_gain);
-        rightFollower.configurePIDVA(RobotMap.ChassisMap.proportional_gain, 0.0, RobotMap.ChassisMap.derivative_gain, 1/RobotMap.ChassisMap.max_velocity, RobotMap.ChassisMap.acceleration_gain);
-
     }
-
 
     @Override
     protected void execute() {
         super.execute();
         if (hasRun == false) {
             hasRun = true;
+            TrajectoryGenerator trajgen = new TrajectoryGenerator();
+            Trajectory trajectory = trajgen.generateTrajectory();
+            tankModifier = new TankModifier(trajectory).modify(Robot.smartDashboardManager.wheel_base_width);
+            leftFollower = new EncoderFollower(tankModifier.getLeftTrajectory());
+            rightFollower = new EncoderFollower(tankModifier.getRightTrajectory());
+            leftFollower.configurePIDVA(Robot.smartDashboardManager.proportional_gain, 0.0, Robot.smartDashboardManager.derivative_gain, 1/Robot.smartDashboardManager.max_velocity, Robot.smartDashboardManager.acceleration_gain);
+            rightFollower.configurePIDVA(Robot.smartDashboardManager.proportional_gain, 0.0, Robot.smartDashboardManager.derivative_gain, 1/Robot.smartDashboardManager.max_velocity, Robot.smartDashboardManager.acceleration_gain);
+
             Robot.chassis.shiftLow();
             Robot.chassis.zeroNavX();
-            leftFollower.configureEncoder(Robot.chassis.getLeftEncoder(), RobotMap.ChassisMap.encoder_ticks_per_rev, RobotMap.ChassisMap.wheel_diameter);
-            rightFollower.configureEncoder(Robot.chassis.getRightEncoder(), RobotMap.ChassisMap.encoder_ticks_per_rev, RobotMap.ChassisMap.wheel_diameter);
+            leftFollower.configureEncoder(Robot.chassis.getLeftEncoder(), Robot.smartDashboardManager.encoder_ticks_per_rev, Robot.smartDashboardManager.wheel_diameter);
+            rightFollower.configureEncoder(Robot.chassis.getRightEncoder(), Robot.smartDashboardManager.encoder_ticks_per_rev, Robot.smartDashboardManager.wheel_diameter);
             leftFollower.reset();
             rightFollower.reset();
         }
         double leftOutput = leftFollower.calculate(Robot.chassis.getLeftEncoder());
         double rightOutput = rightFollower.calculate(Robot.chassis.getRightEncoder());
 
+
         double desiredHeading = Pathfinder.r2d(leftFollower.getHeading());
         double angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - Robot.chassis.getHeading());
-        double turn = 0.8 * (-1.0/60.0) * angleDifference; //No idea where these numbers come from
-        Robot.chassis.setSpeed(-(leftOutput - turn), -(rightOutput + turn));
-        //Robot.chassis.setSpeed(-leftOutput, -rightOutput);
-        System.out.println("left: " + -(leftOutput - turn) + " right: " + -(rightOutput + turn));
+        double turn = Robot.smartDashboardManager.turn_gain * angleDifference; //This is a PD loop that modifies for turning.
+        System.out.println("left: " + leftOutput + " right: " + rightOutput + " turn: " + turn);
+        leftOutput = leftOutput - turn;
+        rightOutput = rightOutput + turn;
+
+        if (leftOutput > 0){
+            leftOutput = leftOutput + Robot.smartDashboardManager.velocity_intercept;
+        }
+        if (leftOutput < 0){
+            leftOutput = leftOutput - Robot.smartDashboardManager.velocity_intercept;
+        }
+        if (rightOutput > 0){
+            leftOutput = leftOutput + Robot.smartDashboardManager.velocity_intercept;
+        }
+        if (rightOutput < 0){
+            leftOutput = leftOutput - Robot.smartDashboardManager.velocity_intercept;
+        }
+
+
+
+        Robot.chassis.setSpeed(-leftOutput, -rightOutput);
+
     }
 
     @Override

@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Created by Henry on 5/4/17.
  */
-public class DriveWithXbox extends Command {
+public class DriveOpenLoop extends Command {
 
     CheesyDriveHelper cheesyDriveHelper = new CheesyDriveHelper();
 
-    public DriveWithXbox(){
+    public DriveOpenLoop(){
         requires(Robot.chassis);
     }
 
@@ -23,18 +23,18 @@ public class DriveWithXbox extends Command {
         super.execute();
         double throttle = Robot.io.getXbox().getRawAxis(1);
         double turn = -Robot.io.getXbox().getRawAxis(4);
-        boolean quickTurn = Robot.io.getXbox().getAButton();
+        boolean quickTurn = Robot.io.getXbox().getRawButton(1);
 
 
         DriveSignal driveSignal = cheesyDriveHelper.cheesyDrive(throttle, turn, quickTurn);
 
         Robot.chassis.setSpeed(driveSignal.leftMotor, driveSignal.rightMotor);
 
-        if (Robot.io.getXbox().getBumper(GenericHID.Hand.kLeft)){
+        if (Robot.io.getXbox().getRawButton(5)){
             Robot.chassis.shiftLow();
         }
 
-        if (Robot.io.getXbox().getBumper(GenericHID.Hand.kRight)){
+        if (Robot.io.getXbox().getRawButton(6)){
             Robot.chassis.shiftHigh();
         }
 

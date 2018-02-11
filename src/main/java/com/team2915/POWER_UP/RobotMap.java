@@ -1,14 +1,7 @@
 package com.team2915.POWER_UP;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 
-
-import java.util.ArrayList;
 
 /**
  * Created by Henry on 5/2/17.
@@ -33,28 +26,14 @@ public class RobotMap {
         //Solenoids
         public static final int shifterA = 0;
         public static final int shifterB = 1;
-        //Stats for Profiling in meters
-//        public static final double wheel_base_width = 23.5;
-//        public static final int encoder_ticks_per_rev = 1920;
-//        public static final double max_velocity = 30; // inches/s
-//        public static final double max_acceleration = 60; // inches/s/s
-//        public static final double max_jerk = 90;// inches/s/s/s
-//        public static final double wheel_diameter = 6;
-//        public static final double proportional_gain = 1.0;
-//        public static final double derivative_gain = 0.0;
-//        public static final double acceleration_gain = 0.0;
-        public static final double wheel_base_width = 0.635;
-        public static final int encoder_ticks_per_rev = 1920;
-        public static final double max_velocity = 0.5; // m/s
-        public static final double max_acceleration = 0.5; // m/s^2
-        public static final double max_jerk = 60;// m/s^3 ?
-        public static final double wheel_diameter = 0.1651;
-        public static final double proportional_gain = 0.8;
-        public static final double derivative_gain = 0.0;
-        public static final double acceleration_gain = -0.1;
-
     }
 
-
-
+    public static final class ElevaotrMap {
+        public static final int leftMotor = 6;
+        public static final int rightMotor = 7;
+        public static final int limitTopA = 3;
+        public static final int limitTopB = 4;
+        public static final int limitBottomA = 5;
+        public static final int limitBottomB = 6;
+    }
 }

@@ -2,6 +2,7 @@ package com.team2915.POWER_UP;
 
 
 import com.team2915.POWER_UP.subsystems.Chassis;
+import com.team2915.POWER_UP.subsystems.Elevator;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -11,9 +12,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class Robot extends IterativeRobot {
 
-    public static boolean isCompBot = true; //TODO: try and run the test chassis with this
-
     public static final Chassis chassis = new Chassis(); //THE WHEELS THAT MAKE THE ROBOT DRIVE
+    public static final Elevator elevator = new Elevator();
 
     public static final IO io = new IO(); //IO manages the xbox controllers and joysticks
 
@@ -21,7 +21,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         super.robotInit();
-        CameraServer.getInstance().startAutomaticCapture();
+
+
 
     }
 
@@ -49,7 +50,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         super.autonomousInit();
-        //Choose auto and set it up
+        //TODO: This is where we pick auto and do it
         smartDashboardManager.updateSmartDashboard();
     }
 

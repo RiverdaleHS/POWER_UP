@@ -15,15 +15,14 @@ import java.awt.*;
  */
 public class IO {
 
-    private XboxController xbox = new XboxController(0);
-    Button mp = new JoystickButton(xbox, 2);
+    private Joystick xbox = new Joystick(0);
+    Button mp = new JoystickButton(xbox, 1);
 
     public IO(){
-
         mp.whenPressed(new ExecuteTrajectory());
     }
 
-    public XboxController getXbox(){
+    public Joystick getXbox(){
         return xbox;
     }
 }
