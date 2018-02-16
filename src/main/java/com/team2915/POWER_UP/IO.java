@@ -16,11 +16,11 @@ import java.awt.*;
 public class IO {
 
     private Joystick xbox = new Joystick(0);
-    Button mp = new JoystickButton(xbox, 1);
+    //Button mp = new JoystickButton(xbox, 1);
 
-    public IO(){
-        mp.whenPressed(new ExecuteTrajectory());
-    }
+    //public IO(){
+        //mp.whenPressed(new ExecuteTrajectory());
+   // }
 
     public Joystick getXbox(){
         return xbox;

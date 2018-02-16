@@ -30,6 +30,7 @@ public class Elevator extends Subsystem {
 //        left.configPeakOutputForward(1, 10);
 //        left.configPeakOutputReverse(-1, 10);
 //        configPIDFVA();
+        right.setInverted(true);
         right.follow(left);
     }
 

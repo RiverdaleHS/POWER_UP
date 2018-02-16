@@ -24,7 +24,7 @@ public class RobotMap {
         public static final int rightEncoderTop = 2;
         public static final int rightEncoderBottom = 3;
         //Solenoids
-        public static final int shifterA = 0;
+        public static final int shifterA = 2;
         public static final int shifterB = 1;
     }
 

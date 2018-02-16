@@ -22,19 +22,20 @@ public class DriveOpenLoop extends Command {
     protected void execute() {
         super.execute();
         double throttle = Robot.io.getXbox().getRawAxis(1);
-        double turn = -Robot.io.getXbox().getRawAxis(4);
-        boolean quickTurn = Robot.io.getXbox().getRawButton(1);
+        double turn = Robot.io.getXbox().getRawAxis(4);
+        boolean quickTurn = Robot.io.getXbox().getRawButton(6);
 
-
-        DriveSignal driveSignal = cheesyDriveHelper.cheesyDrive(throttle, turn, quickTurn);
-
-        Robot.chassis.setSpeed(driveSignal.leftMotor, driveSignal.rightMotor);
-
-        if (Robot.io.getXbox().getRawButton(5)){
-            Robot.chassis.shiftLow();
+        //Testing turn in place purposes only!
+        if (quickTurn) {
+            throttle = 0;
         }
 
-        if (Robot.io.getXbox().getRawButton(6)){
+        DriveSignal driveSignal = cheesyDriveHelper.cheesyDrive(throttle, -turn, quickTurn);
+        Robot.chassis.setSpeed(driveSignal.leftMotor, driveSignal.rightMotor);
+        System.out.println("Left: " + driveSignal.leftMotor + " Right: " + driveSignal.rightMotor);
+        if (Robot.io.getXbox().getRawButton(5)){
+            Robot.chassis.shiftLow();
+        }else{
             Robot.chassis.shiftHigh();
         }
 

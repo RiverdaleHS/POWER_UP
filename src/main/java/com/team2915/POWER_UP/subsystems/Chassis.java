@@ -32,13 +32,16 @@ public class Chassis extends Subsystem {
     public Chassis(){
         //Configure Masters
         rightMaster.setInverted(true);
-        leftMaster.setNeutralMode(NeutralMode.Brake);
         rightMaster.setNeutralMode(NeutralMode.Brake);
+        leftMaster.setInverted(false);
+        leftMaster.setNeutralMode(NeutralMode.Brake);
         //Configure left slaves
         leftSlaveA.set(ControlMode.Follower, leftMaster.getDeviceID());
         leftSlaveB.set(ControlMode.Follower, leftMaster.getDeviceID());
         leftSlaveA.setNeutralMode(NeutralMode.Brake);
         leftSlaveB.setNeutralMode(NeutralMode.Brake);
+        leftSlaveA.setInverted(false);
+        leftSlaveB.setInverted(false);
         //Configure right slaves
         rightSlaveA.set(ControlMode.Follower, rightMaster.getDeviceID());
         rightSlaveB.set(ControlMode.Follower, rightMaster.getDeviceID());
@@ -80,6 +83,10 @@ public class Chassis extends Subsystem {
         return leftEncoder.get();
     }
 
+    public double getLeftEncoderRate() {
+        return leftEncoder.getRate();
+    }
+
     public int getRightEncoder() {
         return rightEncoder.get();
     }
@@ -91,6 +98,7 @@ public class Chassis extends Subsystem {
     public void zeroNavX(){
         navx.zeroYaw();
     }
+
     public float getAcceleration() {
         return navx.getRawAccelY();
         //TODO: This is in here for collision detection
