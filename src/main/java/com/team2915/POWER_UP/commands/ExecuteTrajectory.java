@@ -37,7 +37,7 @@ public class ExecuteTrajectory extends Command {
             rightFollower = new EncoderFollower(tankModifier.getRightTrajectory());
             leftFollower.configurePIDVA(Robot.smartDashboardManager.proportional_gain, 0.0, Robot.smartDashboardManager.derivative_gain, Robot.smartDashboardManager.velocity_feedforward, Robot.smartDashboardManager.acceleration_feedforward);
             rightFollower.configurePIDVA(Robot.smartDashboardManager.proportional_gain, 0.0, Robot.smartDashboardManager.derivative_gain, Robot.smartDashboardManager.velocity_feedforward, Robot.smartDashboardManager.acceleration_feedforward);
-            Robot.chassis.shiftLow();
+
             Robot.chassis.zeroNavX();
             leftFollower.configureEncoder(Robot.chassis.getLeftEncoder(), Robot.smartDashboardManager.encoder_ticks_per_rev, Robot.smartDashboardManager.wheel_diameter);
             rightFollower.configureEncoder(Robot.chassis.getRightEncoder(), Robot.smartDashboardManager.encoder_ticks_per_rev, Robot.smartDashboardManager.wheel_diameter);

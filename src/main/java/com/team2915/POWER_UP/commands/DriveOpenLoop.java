@@ -3,6 +3,7 @@ package com.team2915.POWER_UP.commands;
 import com.team254.frc2016.CheesyDriveHelper;
 import com.team254.lib.util.DriveSignal;
 import com.team2915.POWER_UP.Robot;
+import com.team2915.POWER_UP.RobotMap;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,23 +22,19 @@ public class DriveOpenLoop extends Command {
     @Override
     protected void execute() {
         super.execute();
-        double throttle = Robot.io.getXbox().getRawAxis(1);
-        double turn = Robot.io.getXbox().getRawAxis(4);
-        boolean quickTurn = Robot.io.getXbox().getRawButton(6);
+        double throttle = Robot.io.getXbox().getRawAxis(RobotMap.ControlsMap.throttleAxis);
+        double turn = Robot.io.getXbox().getRawAxis(RobotMap.ControlsMap.turnAxis);
+        boolean quickTurn = Robot.io.getXbox().getRawButton(RobotMap.ControlsMap.quickTurn);
 
         //Testing turn in place purposes only!
         if (quickTurn) {
             throttle = 0;
         }
 
+
         DriveSignal driveSignal = cheesyDriveHelper.cheesyDrive(throttle, -turn, quickTurn);
         Robot.chassis.setSpeed(driveSignal.leftMotor, driveSignal.rightMotor);
         System.out.println("Left: " + driveSignal.leftMotor + " Right: " + driveSignal.rightMotor);
-        if (Robot.io.getXbox().getRawButton(5)){
-            Robot.chassis.shiftLow();
-        }else{
-            Robot.chassis.shiftHigh();
-        }
 
     }
 
